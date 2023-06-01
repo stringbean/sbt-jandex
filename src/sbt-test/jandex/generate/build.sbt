@@ -12,7 +12,7 @@ verifyJarIndex := {
   val projectJar = (Compile / packageBin).value
 
   Using(new JarFile(projectJar)) { jarFile =>
-    val indexEntry = jarFile.getEntry("META-INF/index.idx")
+    val indexEntry = jarFile.getEntry("META-INF/jandex.idx")
 
     if (indexEntry == null) {
       sys.error("Missing index.idx in JAR")
