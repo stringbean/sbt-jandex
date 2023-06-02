@@ -19,4 +19,25 @@ addSbtPlugin("software.purpledragon" % "sbt-jandex" % "<version>")
 
 Jandex indexes will automatically be generated and added to the binary JARs.
 
+## Tasks
+
+### `jandex`
+
+Generates Jandex index for the main classes and stores it in `jandexOutput.value / jandex.idx`.
+
+## Settings
+
+### `jandexOutput`
+
+- **Description:** Directory to store generated Jandex index in.
+- **Accepts:** `File`
+- **Default:** `crossTarget.value / jandex`
+
+### `jandexIncludeInPackage`
+
+- **Description:** Whether to include Jandex index in the main JAR. If `true` then the index will be included under
+  `META-INF/jandex.idx.
+- **Accepts:** `Boolean`
+- **Default:** `true`
+
 [jandex]: https://smallrye.io/jandex
