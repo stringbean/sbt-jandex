@@ -25,22 +25,30 @@ object JandexPlugin extends AutoPlugin {
   override val requires: Plugins = JvmPlugin
 
   object autoImport {
-    lazy val jandex: TaskKey[File] = taskKey[File]("generate Jandex index")
-    lazy val jandexOutput = taskKey[File]("output dir")
+    lazy val jandex: TaskKey[File] = taskKey[File]("Generate Jandex index")
+
+    lazy val jandexOutput: TaskKey[sbt.File] = taskKey[File]("Output directory for generated index")
+    lazy val jandexIncludeInPackage: TaskKey[Boolean] =
+      taskKey[Boolean]("If true, then a generated Jandex index will be added to the binary JAR")
   }
 
   import autoImport.*
 
   override def projectSettings: Seq[Def.Setting[?]] = Seq(
     jandexOutput := crossTarget.value / "jandex",
+    jandexIncludeInPackage := true,
     jandex := {
       streams.value.log.info("Generating Jandex index")
       val classDirs = (Runtime / products).value
 
       JandexGenerator.generateIndex(classDirs, jandexOutput.value)
     },
-    Compile / packageBin / mappings += {
-      jandex.value -> "META-INF/jandex.idx"
+    Compile / packageBin / mappings ++= {
+      if (jandexIncludeInPackage.value) {
+        Seq(jandex.value -> "META-INF/jandex.idx")
+      } else {
+        Seq.empty
+      }
     },
   )
 }

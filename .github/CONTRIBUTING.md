@@ -6,10 +6,10 @@ Welcome and thanks for taking the time to contribute to this project!
 
 Before submitting a PR please ensure that you have run the following sbt tasks:
 
-* `test`
-* `scripted`
-* `scalafmt`
-* `headerCheck`
+*   `test`
+*   `scripted`
+*   `scalafmt`
+*   `headerCheck`
 
 This should ensure that everything works and meets the styleguide.
 
