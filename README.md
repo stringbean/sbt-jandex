@@ -13,7 +13,17 @@ An sbt plugin to generate [Jandex][jandex] indexes for projects.
 Add the following lines to `project/plugins.sbt`:
 
 ```scala
+// add the plugin
 addSbtPlugin("software.purpledragon" % "sbt-jandex" % "<version>")
+
+// add the Jandex 3.x library
+libraryDependencies += "io.smallrye" % "jandex" % "3.1.2"
+
+// or Jandex 2.x library
+libraryDependencies += "org.jboss" % "jandex" % "2.4.3.Final"
+
+// or Jandex 1.x library
+libraryDependencies += "org.jboss" % "jandex" % "1.2.4.Final"
 ```
 
 Jandex indexes will automatically be generated and added to the binary JARs.
