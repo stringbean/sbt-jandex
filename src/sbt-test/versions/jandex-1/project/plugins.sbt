@@ -6,4 +6,4 @@
   else addSbtPlugin("software.purpledragon" % "sbt-jandex" % pluginVersion)
 }
 
-libraryDependencies += "io.smallrye" % "jandex" % "3.1.2"
+libraryDependencies += "org.jboss" % "jandex" % "1.2.4.Final"

@@ -5,3 +5,5 @@
                                   |Specify this property using the scriptedLaunchOpts -D.""".stripMargin)
   else addSbtPlugin("software.purpledragon" % "sbt-jandex" % pluginVersion)
 }
+
+libraryDependencies += "io.smallrye" % "jandex" % "3.1.2"

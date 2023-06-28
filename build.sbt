@@ -4,7 +4,7 @@ organization := "software.purpledragon"
 enablePlugins(SbtPlugin)
 
 libraryDependencies ++= Seq(
-  "io.smallrye" % "jandex" % "3.1.1",
+  "io.smallrye" % "jandex" % "3.1.1" % Provided,
 )
 
 scriptedLaunchOpts := {
