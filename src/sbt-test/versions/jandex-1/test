@@ -1,0 +1,6 @@
+# check index file is generated
+> jandex
+$ exists target/scala-2.13/jandex/jandex.idx
+
+# check that index file is included in JAR
+> verifyJarIndex

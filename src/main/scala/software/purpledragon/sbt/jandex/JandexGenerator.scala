@@ -20,10 +20,25 @@ import org.jboss.jandex.{IndexWriter, Indexer}
 import sbt.*
 import sbt.io.Using
 
+import java.io.InputStream
+import java.lang.reflect.Method
+
 object JandexGenerator {
+  private val indexMethod: Method = {
+    // use reflection to locate method as the signature has changed
+    // Jandex < 3.0 this returns ClassInfo
+    // Jandex > 3.0 this returns void/Unit
+    classOf[Indexer].getMethod("index", classOf[InputStream])
+  }
+
   // TODO cache generated index
   def generateIndex(classDirs: Seq[File], outputDir: File): File = {
     val indexer = new Indexer()
+
+    // 1.x & 2.x
+    // public org.jboss.jandex.ClassInfo index(java.io.InputStream) throws java.io.IOException;
+    // 3.x
+    // public void index(java.io.InputStream) throws java.io.IOException;
 
     val classFiles = classDirs flatMap { dir =>
       (dir ** "*.class").get()
@@ -31,7 +46,7 @@ object JandexGenerator {
 
     classFiles foreach { clazz =>
       Using.fileInputStream(clazz) { is =>
-        indexer.index(is)
+        indexMethod.invoke(indexer, is)
       }
     }
 
@@ -47,4 +62,5 @@ object JandexGenerator {
 
     outputFile
   }
+
 }
